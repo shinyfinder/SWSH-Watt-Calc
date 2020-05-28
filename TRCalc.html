@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TR Trader Calc</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+		$(function(){
+			$("#area option[value='default']").attr("selected",true);
+		});
+
+		window.onload = function() {
+			document.getElementById("firstTR").value = "";
+			document.getElementById("firstTR-hidden").value = "";
+			document.getElementById("desiredTR").value = "";
+        	document.getElementById("desiredTR-hidden").value = "";
+
+		}
+	</script>
+
+
+</head>
+<body>
+
+	<h2>What this does</h2>
+	<p>This calculator is a tool to determine the day when the Watt Traders in the Sword &amp; Shield Wild Area will have a specific TR for purchase. Enter in the location of the trader, the first TR they have for purchase, and your desired TR. The calculator will tell you which trader will have your desired TR and how many days into the future it will take for it to appear.</p>
+	<p>Tool written and hosted by shiny finder.</p>
+
+	<h2>Terms</h2>
+	<dl>
+		<strong><dt>TR</dt></strong>
+		<dd>Technical Record</dd>
+	</dl>
+	<hr />
+	<h2>The Calculator</h2>
+<!-- Area Select 
+  <strong>Select the location of the trader: </strong>
+  <select name="area" id="area">
+    <option value="meetup">Meetup Spot</option>
+    <option value="axewell">East Lake Axewell</option>
+    <option value="grove">Dappled Grove</option>
+    <option value="seat">Giant's Seat</option>
+    <option value="field">Bridge Field</option>
+    <option value="hills">Hammerlocke Hills</option>
+    <option value="cap">Giant's Cap</option>
+  </select>
+  <br />
+<strong>Select the first TR the trader at the above location is selling: </strong>
+  <select name="firstTRs" id="firstTRs">
+    <option value="00">Swords Dance (TR00)</option>
+    <option value="01">Body Slam (TR01)</option>
+    <option value="02">Flamethrower (TR02)</option>   
+    <option value="03">Hydro Pump (TR03)</option>   
+    <option value="04">Surf (TR04)</option>   
+    <option value="05">Ice Beam (TR05)</option>   
+    <option value="06">Blizzard (TR06)</option>   
+    <option value="07">Low Kick (TR07)</option>   
+    <option value="08">Thunderbolt (TR08)</option>   
+    <option value="09">Thunder (TR09)</option>   
+    <option value="10">Earthquake (TR10)</option>   
+    <option value="11">Psychic (TR11)</option>   
+    <option value="12">Agility (TR12)</option>   
+    <option value="13">Focus Energy (TR13)</option>   
+    <option value="14">Metronome (TR14)</option>   
+    <option value="15">Fire Blast (TR15)</option>   
+    <option value="16">Waterfall (TR16)</option>   
+    <option value="17">Amnesia (TR17)</option>   
+    <option value="18">Leech Life (TR18)</option>   
+    <option value="19">Tri Attack (TR19)</option>   
+    <option value="20">Substitute (TR20)</option>     
+  </select>
+  <br />
+</form>
+<br />
+-->
+
+<form id="traderLocationForm">
+	<label for="area">Enter the location of the Watt Trader:</label>
+	<select name="area" id="area">
+		<option value="default">Chose an option...</option>
+		<option value="meetup">Meetup Spot</option>
+		<option value="axewell">East Lake Axewell</option>
+		<option value="grove">Dappled Grove</option>
+		<option value="seat">Giant's Seat</option>
+		<option value="field">Bridge Field</option>
+		<option value="hills">Hammerlocke Hills</option>
+		<option value="cap">Giant's Cap</option>
+	</select>
+</form>
+<img id="locationImage" src="https://www.smogon.com/media/zracknel-beta.svg.m.1" alt=" " style="height: 200px;width: 400px;padding: 20px;" />
+
+<form id="firstTRForm">
+	<label for="firstTR">Enter the first TR the trader at the above location is selling:</label>
+	<input list="firstTRs" name="firstTR" id="firstTR">
+	<datalist id="firstTRs">
+		<option data-value="00">Swords Dance (TR00)</option>
+		<option data-value="01">Body Slam (TR01)</option>
+		<option data-value="02">Flamethrower (TR02)</option>
+		<option data-value="03">Hydro Pump (TR03)</option>
+		<option data-value="04">Surf (TR04)</option>
+		<option data-value="05">Ice Beam (TR05)</option>
+		<option data-value="06">Blizzard (TR06)</option>
+		<option data-value="07">Low Kick (TR07)</option>
+		<option data-value="08">Thunderbolt (TR08)</option>
+		<option data-value="09">Thunder (TR09)</option>
+		<option data-value="10">Earthquake (TR10)</option>
+		<option data-value="11">Psychic (TR11)</option>
+		<option data-value="12">Agility (TR12)</option>
+		<option data-value="13">Focus Energy (TR13)</option>
+		<option data-value="14">Metronome (TR14)</option>
+		<option data-value="15">Fire Blast (TR15)</option>
+		<option data-value="16">Waterfall (TR16)</option>
+		<option data-value="17">Amnesia (TR17)</option>
+		<option data-value="18">Leech Life (TR18)</option>
+		<option data-value="19">Tri Attack (TR19)</option>
+		<option data-value="20">Substitute (TR20)</option>
+		<option data-value="21">Reversal (TR21)</option>
+		<option data-value="22">Sludge Bomb (TR22)</option>
+		<option data-value="23">Spikes (TR23)</option>
+		<option data-value="24">Outrage (TR24)</option>
+		<option data-value="25">Psyshock (TR25)</option>
+		<option data-value="26">Endure (TR26)</option>
+		<option data-value="27">Sleep Talk (TR27)</option>
+		<option data-value="28">Megahorn (TR28)</option>
+		<option data-value="29">Baton Pass (TR29)</option>
+		<option data-value="30">Encore (TR30)</option>
+		<option data-value="31">Iron Tail (TR31)</option>
+		<option data-value="32">Crunch (TR32</option>
+		<option data-value="33">Shadow Ball (TR33)</option>
+		<option data-value="34">Future Sight (TR34)</option>
+		<option data-value="35">Uproar (TR35)</option>
+		<option data-value="36">Heat Wave (TR36)</option>
+		<option data-value="37">Taunt (TR37)</option>
+		<option data-value="38">Trick (TR38)</option>
+		<option data-value="39">Superpower (TR39)</option>
+		<option data-value="40">Skill Swap (TR40)</option>
+		<option data-value="41">Blaze Kick (TR41)</option>
+		<option data-value="42">Hyper Voice (TR42)</option>
+		<option data-value="43">Overheat (TR41)</option>
+		<option data-value="44">Cosmic Power (TR44)</option>
+		<option data-value="45">Muddy Water (TR45)</option>
+		<option data-value="46">Iron Defense (TR46)</option>
+		<option data-value="47">Dragon Claw (TR47)</option>
+		<option data-value="48">Bulk Up (TR48)</option>
+		<option data-value="49">Calm Mind (TR49)</option>
+	</datalist>
+	<input type="hidden" name="firstTR-answer" id="firstTR-hidden">
+	
+</form>
+
+<form id="desiredTRForm">
+	<label for="desiredTR">Enter your desired TR:</label>
+	<input list="desiredTRs" name="desiredTR" id="desiredTR">
+	<datalist id="desiredTRs">
+		<option data-value="00">Swords Dance (TR00)</option>
+		<option data-value="01">Body Slam (TR01)</option>
+		<option data-value="02">Flamethrower (TR02)</option>
+		<option data-value="03">Hydro Pump (TR03)</option>
+		<option data-value="04">Surf (TR04)</option>
+		<option data-value="05">Ice Beam (TR05)</option>
+		<option data-value="06">Blizzard (TR06)</option>
+		<option data-value="07">Low Kick (TR07)</option>
+		<option data-value="08">Thunderbolt (TR08)</option>
+		<option data-value="09">Thunder (TR09)</option>
+		<option data-value="10">Earthquake (TR10)</option>
+		<option data-value="11">Psychic (TR11)</option>
+		<option data-value="12">Agility (TR12)</option>
+		<option data-value="13">Focus Energy (TR13)</option>
+		<option data-value="14">Metronome (TR14)</option>
+		<option data-value="15">Fire Blast (TR15)</option>
+		<option data-value="16">Waterfall (TR16)</option>
+		<option data-value="17">Amnesia (TR17)</option>
+		<option data-value="18">Leech Life (TR18)</option>
+		<option data-value="19">Tri Attack (TR19)</option>
+		<option data-value="20">Substitute (TR20)</option>
+		<option data-value="21">Reversal (TR21)</option>
+		<option data-value="22">Sludge Bomb (TR22)</option>
+		<option data-value="23">Spikes (TR23)</option>
+		<option data-value="24">Outrage (TR24)</option>
+		<option data-value="25">Psyshock (TR25)</option>
+		<option data-value="26">Endure (TR26)</option>
+		<option data-value="27">Sleep Talk (TR27)</option>
+		<option data-value="28">Megahorn (TR28)</option>
+		<option data-value="29">Baton Pass (TR29)</option>
+		<option data-value="30">Encore (TR30)</option>
+		<option data-value="31">Iron Tail (TR31)</option>
+		<option data-value="32">Crunch (TR32</option>
+		<option data-value="33">Shadow Ball (TR33)</option>
+		<option data-value="34">Future Sight (TR34)</option>
+		<option data-value="35">Uproar (TR35)</option>
+		<option data-value="36">Heat Wave (TR36)</option>
+		<option data-value="37">Taunt (TR37)</option>
+		<option data-value="38">Trick (TR38)</option>
+		<option data-value="39">Superpower (TR39)</option>
+		<option data-value="40">Skill Swap (TR40)</option>
+		<option data-value="41">Blaze Kick (TR41)</option>
+		<option data-value="42">Hyper Voice (TR42)</option>
+		<option data-value="43">Overheat (TR41)</option>
+		<option data-value="44">Cosmic Power (TR44)</option>
+		<option data-value="45">Muddy Water (TR45)</option>
+		<option data-value="46">Iron Defense (TR46)</option>
+		<option data-value="47">Dragon Claw (TR47)</option>
+		<option data-value="48">Bulk Up (TR48)</option>
+		<option data-value="49">Calm Mind (TR49)</option>
+		<option data-value="50">Leaf Blade (TR50)</option>
+		<option data-value="51">Dragon Dance (TR51)</option>
+		<option data-value="52">Gyro Ball (TR52)</option>
+		<option data-value="53">Close Combat (TR53)</option>
+		<option data-value="54">Toxic Spikes (TR54)</option>
+		<option data-value="55">Flare Blitz (TR55)</option>
+		<option data-value="56">Aura Sphere (TR56)</option>
+		<option data-value="57">Poison Jab (TR57)</option>
+		<option data-value="58">Dark Pulse (TR58)</option>
+		<option data-value="59">Seed Bomb (TR59)</option>
+		<option data-value="60">X-Scissor (TR60)</option>
+		<option data-value="61">Bug Buzz (TR61)</option>
+		<option data-value="62">Dragon Pulse (TR62)</option>
+		<option data-value="63">Power Gem (TR63)</option>
+		<option data-value="64">Focus Blast (TR64)</option>
+		<option data-value="65">Energy Ball (TR65)</option>
+		<option data-value="66">Brave Bird (TR66)</option>
+		<option data-value="67">Earth Power (TR67)</option>
+		<option data-value="68">Nasty Plot (TR68)</option>
+		<option data-value="69">Zen Headbutt (TR69)</option>
+		<option data-value="70">Flash Cannon (TR70)</option>
+		<option data-value="71">Leaf Storm (TR71)</option>
+		<option data-value="72">Power Whip (TR72)</option>
+		<option data-value="73">Gunk Shot (TR73)</option>
+		<option data-value="74">Iron Head (TR74)</option>
+		<option data-value="75">Stone Edge (TR75)</option>
+		<option data-value="76">Stealth Rock (TR76)</option>
+		<option data-value="77">Grass Knot (TR77)</option>
+		<option data-value="78">Sludge Wave (TR78)</option>
+		<option data-value="79">Heavy Slam (TR79)</option>
+		<option data-value="80">Electro Ball (TR80)</option>
+		<option data-value="81">Foul Play (TR81)</option>
+		<option data-value="82">Stored Power (TR82)</option>
+		<option data-value="83">Ally Switch (TR83)</option>
+		<option data-value="84">Scald (TR84)</option>
+		<option data-value="85">Work Up (TR85)</option>
+		<option data-value="86">Wild Charge (TR86)</option>
+		<option data-value="87">Drill Run (TR87)</option>
+		<option data-value="88">Heat Crash (TR88)</option>
+		<option data-value="89">Hurricane (TR89)</option>
+		<option data-value="90">Play Rough (TR90)</option>
+		<option data-value="91">Venom Drench (TR91)</option>
+		<option data-value="92">Dazzling Gleam (TR92)</option>
+		<option data-value="93">Darkest Lariat (TR93)</option>
+		<option data-value="94">High Horsepower (TR94)</option>
+		<option data-value="95">Throat Chop (TR95)</option>
+		<option data-value="96">Pollen Puff (TR96)</option>
+		<option data-value="97">Psychic Fangs (TR97)</option>
+		<option data-value="98">Luiquidation (TR98)</option>
+		<option data-value="99">Body Press (TR99)</option>
+	</datalist>
+	<input type="hidden" name="desiredTR-answer" id="desiredTR-hidden">
+	<input type="button" onclick="Calc()" value="Calculate" class="formData Button" />
+</form>
+
+<!--
+<form id="myForm">
+    <input list="answers" id="answer">
+    <datalist id="answers">
+        <option data-value="42">The answer</option>
+        <option data-value="1337">Elite</option>
+        <option data-value="69">Dirty</option>
+        <option data-value="3">Pi</option>
+    </datalist>
+    <input type="hidden" name="answer" id="answer-hidden">
+    <input type="submit">
+</form>
+-->
+<h3>Results</h3>
+<pre id="result"></pre>
+
+<img id="locationOutImage" src="" alt=" " style="height: 200px;width: 400px;padding: 20px;"/>
+<img id="locationOutMap" src="" alt=" " style="height: 200px;width: 400px;padding: 20px;">
+
+
+
+
+
+
+<!-- Area Input -->
+<script type="text/javascript">
+	document.querySelector('#area').addEventListener('change', function(e) {
+		var input = e.target,
+
+		label = input.value;
+
+		if (label == "meetup") {
+			document.getElementById('locationImage').src = 'https://cdn.bulbagarden.net/upload/thumb/d/d3/Meetup_Spot_SwSh.png/800px-Meetup_Spot_SwSh.png';	
+		} else if (label == "axewell") {
+			document.getElementById('locationImage').src = 'https://www.gamerguides.com/assets/guides/resize990x-/168/The_Wild_Area_East_Lake_Axewell_Merchants_Pokemon_Sword_and_Shield.jpg';	
+		} else if (label == "grove") {
+			document.getElementById('locationImage').src = 'https://www.gamerguides.com/assets/guides/resize990x-/168/The_Wild_Area_Dappled_Grove_Watt_Trader_Pokemon_Sword_and_Shield.jpg';	
+		} else if (label == "seat") {
+			document.getElementById('locationImage').src = 'https://cdn.bulbagarden.net/upload/thumb/3/33/Giant%27s_Seat_SwSh.png/290px-Giant%27s_Seat_SwSh.png';	
+		} else if (label == "field") {
+			document.getElementById('locationImage').src = 'https://cdn.mos.cms.futurecdn.net/JooUsvdcqgYoUTKBExw8sK.jpg';	
+		} else if (label == "hills") {
+			document.getElementById('locationImage').src = 'https://static.gosunoob.com/img/1/2019/11/pokemon-sword-shield-watt-trader-locations-1024x581.jpg';	
+		} else if (label == "cap") {
+			document.getElementById('locationImage').src = 'https://pokemonfaqs.com/wp-content/uploads/2020/03/galar_giants_cap_1.jpg';
+		} else if (label == "default") {
+			document.getElementById('locationImage').src = 'https://www.smogon.com/media/zracknel-beta.svg.m.1';;
+		}
+	});
+
+</script>
+
+
+<!-- TR First -->
+<script type="text/javascript">
+/*document.querySelector('input[list]').addEventListener('input', function(e) {
+    var input = e.target,
+        list = input.getAttribute('list'),
+        options = document.querySelectorAll('#' + list + ' option'),
+        hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+        label = input.value;
+
+    hiddenInput.value = label;
+
+    for(var i = 0; i < options.length; i++) {
+        var option = options[i];
+
+        if(option.innerText === label) {
+            hiddenInput.value = option.getAttribute('data-value');
+            break;
+        }
+    }
+});
+
+// For debugging purposes
+document.getElementById("myForm").addEventListener('submit', function(e) {
+    var value = document.getElementById('answer-hidden').value;
+    document.getElementById('result').innerHTML = value;
+
+    */
+
+    document.querySelector('#firstTR').addEventListener('input', function(e) {
+    	var input = e.target,
+    	list = input.getAttribute('list'),
+    	options = document.querySelectorAll('#' + list + ' option'),
+    	hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+    	label = input.value;
+
+    	hiddenInput.value = label;
+
+    	for(var i = 0; i < options.length; i++) {
+    		var option = options[i];
+
+    		if(option.innerText === label) {
+    			hiddenInput.value = option.getAttribute('data-value');
+    			break;
+    		}
+    	}
+    });
+
+// For debugging purposes
+document.getElementById("firstTRForm").addEventListener('submit', function(e) {
+	var value = document.getElementById('firstTR-hidden').value;
+	document.getElementById('result').innerHTML = value;
+	e.preventDefault();
+});;
+</script>
+
+
+<!-- TR Desired -->
+<script type="text/javascript">
+/*document.querySelector('input[list]').addEventListener('input', function(e) {
+    var input = e.target,
+        list = input.getAttribute('list'),
+        options = document.querySelectorAll('#' + list + ' option'),
+        hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+        label = input.value;
+
+    hiddenInput.value = label;
+
+    for(var i = 0; i < options.length; i++) {
+        var option = options[i];
+
+        if(option.innerText === label) {
+            hiddenInput.value = option.getAttribute('data-value');
+            break;
+        }
+    }
+});
+
+// For debugging purposes
+document.getElementById("myForm").addEventListener('submit', function(e) {
+    var value = document.getElementById('answer-hidden').value;
+    document.getElementById('result').innerHTML = value;
+
+    */
+
+    document.querySelector('#desiredTR').addEventListener('input', function(e) {
+    	var input = e.target,
+    	list = input.getAttribute('list'),
+    	options = document.querySelectorAll('#' + list + ' option'),
+    	hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+    	label = input.value;
+
+    	hiddenInput.value = label;
+
+    	for(var i = 0; i < options.length; i++) {
+    		var option = options[i];
+
+    		if(option.innerText === label) {
+    			hiddenInput.value = option.getAttribute('data-value');
+    			break;
+    		}
+    	}
+    });
+
+// For debugging purposes
+document.getElementById("desiredTRForm").addEventListener('submit', function(e) {
+	var value = document.getElementById('desiredTR-hidden').value;
+	document.getElementById('result').innerHTML = value;
+	e.preventDefault();
+});;
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+	function Calc() {
+		var firstTR;
+		var desiredTR;
+		var opt;
+		var TROut = [];
+		var firstTRp, secondTRp, thirdTRp, fourthTRp, fifthTRp;
+		var chosenLoc;
+		var chosenLocationIndex;
+		var day = 0;
+
+		
+		firstTR = document.getElementById('firstTR-hidden').value;
+		desiredTR = document.getElementById('desiredTR-hidden').value;
+
+		
+		opt = document.querySelectorAll('#area' + ' option');
+		
+
+		chosenLoc = Number($('#area').find(":selected").index());
+
+		var firstNaNTest = isNaN(Number(firstTR));
+		var desiredNaNTest = isNaN(Number(desiredTR));
+
+		if (chosenLoc == 0 || firstTR == "" || desiredTR == "" || firstNaNTest === true || desiredNaNTest === true) {
+			document.getElementById('result').innerHTML = "INVALID INPUT";
+			document.getElementById('locationOutImage').src = "";
+			document.getElementById('locationOutMap').src = "";
+			$("#result").css("color","red");
+			return;
+		}
+
+		chosenLocationIndex = 1000;
+
+		firstTR = Number(firstTR);
+		desiredTR = Number(desiredTR);
+
+		while (chosenLocationIndex == 1000) {
+			for (var j = 1; j < opt.length; j++) {
+				firstTRp = (50 + firstTR + 7*(j-chosenLoc)) % 50;
+				secondTRp = firstTRp + 24;
+				thirdTRp = firstTRp + 42;
+				fourthTRp = (firstTRp + 67) % 100;
+				fifthTRp = (firstTRp + 96) % 100;
+
+				document.getElementById('result').innerHTML = firstTRp;
+				TROut[j-1] = [firstTRp, secondTRp, thirdTRp, fourthTRp, fifthTRp];
+
+			}
+		/*if (chosenLoc == 2) {
+			var firstTRp = (firstTR + 7) % 50;
+		}*/
+
+		chosenLocationIndex = checkDesired(TROut, desiredTR);
+
+		
+		if (chosenLocationIndex == 1000) {
+			day = day + 1;
+			firstTR = (firstTR + 1) % 50;
+		}
+
+		}
+
+		//var LocationOptions = document.getElementById('area');
+		chosenLocationIndex +=1 ;
+		var chosenLocationText = document.getElementById('area')[chosenLocationIndex].text;
+
+		document.getElementById('result').innerHTML = "After " + day + " day(s) your TR will be sold at " + chosenLocationText + ".";
+		$("#result").css("color","black");
+
+		if (chosenLocationIndex == 1) {
+			document.getElementById('locationOutImage').src = 'https://cdn.bulbagarden.net/upload/thumb/d/d3/Meetup_Spot_SwSh.png/800px-Meetup_Spot_SwSh.png';
+			document.getElementById('locationOutMap').src = 'https://cdn.vox-cdn.com/thumbor/CGPdT1zVjk4iQV3b-uhyOigdf_8=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19376973/where_to_find_gigantamax_pikachu_eevee.jpg';	
+
+		} else if (chosenLocationIndex == 2) {
+			document.getElementById('locationOutImage').src = 'https://www.gamerguides.com/assets/guides/resize990x-/168/The_Wild_Area_East_Lake_Axewell_Merchants_Pokemon_Sword_and_Shield.jpg';
+			document.getElementById('locationOutMap').src = 'https://gamewith-en.akamaized.net/article/thumbnail/rectangle/13897.png';	
+		} else if (chosenLocationIndex == 3) {
+			document.getElementById('locationOutImage').src = 'https://www.gamerguides.com/assets/guides/resize990x-/168/The_Wild_Area_Dappled_Grove_Watt_Trader_Pokemon_Sword_and_Shield.jpg';
+			document.getElementById('locationOutMap').src = 'https://gamewith-en.akamaized.net/article/thumbnail/rectangle/13888.png';	
+			
+		} else if (chosenLocationIndex == 4) {
+			document.getElementById('locationOutImage').src = 'https://cdn.bulbagarden.net/upload/thumb/3/33/Giant%27s_Seat_SwSh.png/290px-Giant%27s_Seat_SwSh.png';
+			document.getElementById('locationOutMap').src = 'https://gamewith-en.akamaized.net/article/thumbnail/rectangle/13891.png';
+		} else if (chosenLocationIndex == 5) {
+			document.getElementById('locationOutImage').src = 'https://cdn.mos.cms.futurecdn.net/JooUsvdcqgYoUTKBExw8sK.jpg';
+			document.getElementById('locationOutMap').src = 'https://gamewith-en.akamaized.net/article/thumbnail/rectangle/13907.png';
+		} else if (chosenLocationIndex == 6) {
+			document.getElementById('locationOutImage').src = 'https://static.gosunoob.com/img/1/2019/11/pokemon-sword-shield-watt-trader-locations-1024x581.jpg';
+			document.getElementById('locationOutMap').src = 'https://pokemonfaqs.com/wp-content/uploads/2020/03/galar_hammerlocke_hills_2.png';			
+		} else if (chosenLocationIndex == 7) {
+			document.getElementById('locationOutImage').src = 'https://pokemonfaqs.com/wp-content/uploads/2020/03/galar_giants_cap_1.jpg';
+			document.getElementById('locationOutMap').src = 'https://gamewith-en.akamaized.net/article/thumbnail/rectangle/13919.png';				
+		}
+
+	}
+
+
+
+function checkDesired(array, item) {
+	for (var i = 0; i < array.length; i++) {
+		for (var j = 0; j < 5; j++) {
+			if (array[i][j] == item) {
+				return i;
+			}
+		}
+	}
+	return 1000;
+}
+</script>
+
+</body>
+</html>
