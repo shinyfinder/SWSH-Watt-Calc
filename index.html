@@ -11,13 +11,14 @@
 	<script type="text/javascript">
 		$(function(){
 			$("#area option[value='default']").attr("selected",true);
+			$("#balls option[value='default']").attr("selected",true);
 		});
 
 		window.onload = function() {
 			document.getElementById("firstTR").value = "";
 			document.getElementById("firstTR-hidden").value = "";
 			document.getElementById("desiredTR").value = "";
-        	document.getElementById("desiredTR-hidden").value = "";
+			document.getElementById("desiredTR-hidden").value = "";
 
 		}
 	</script>
@@ -37,7 +38,46 @@
 	</dl>
 	<hr />
 	<h2>The Calculator</h2>
-
+<!-- Area Select 
+  <strong>Select the location of the trader: </strong>
+  <select name="area" id="area">
+    <option value="meetup">Meetup Spot</option>
+    <option value="axewell">East Lake Axewell</option>
+    <option value="grove">Dappled Grove</option>
+    <option value="seat">Giant's Seat</option>
+    <option value="field">Bridge Field</option>
+    <option value="hills">Hammerlocke Hills</option>
+    <option value="cap">Giant's Cap</option>
+  </select>
+  <br />
+<strong>Select the first TR the trader at the above location is selling: </strong>
+  <select name="firstTRs" id="firstTRs">
+    <option value="00">Swords Dance (TR00)</option>
+    <option value="01">Body Slam (TR01)</option>
+    <option value="02">Flamethrower (TR02)</option>   
+    <option value="03">Hydro Pump (TR03)</option>   
+    <option value="04">Surf (TR04)</option>   
+    <option value="05">Ice Beam (TR05)</option>   
+    <option value="06">Blizzard (TR06)</option>   
+    <option value="07">Low Kick (TR07)</option>   
+    <option value="08">Thunderbolt (TR08)</option>   
+    <option value="09">Thunder (TR09)</option>   
+    <option value="10">Earthquake (TR10)</option>   
+    <option value="11">Psychic (TR11)</option>   
+    <option value="12">Agility (TR12)</option>   
+    <option value="13">Focus Energy (TR13)</option>   
+    <option value="14">Metronome (TR14)</option>   
+    <option value="15">Fire Blast (TR15)</option>   
+    <option value="16">Waterfall (TR16)</option>   
+    <option value="17">Amnesia (TR17)</option>   
+    <option value="18">Leech Life (TR18)</option>   
+    <option value="19">Tri Attack (TR19)</option>   
+    <option value="20">Substitute (TR20)</option>     
+  </select>
+  <br />
+</form>
+<br />
+-->
 
 <form id="traderLocationForm">
 	<label for="area">Enter the location of the Watt Trader:</label>
@@ -219,7 +259,28 @@
 		<option data-value="99">Body Press (TR99)</option>
 	</datalist>
 	<input type="hidden" name="desiredTR-answer" id="desiredTR-hidden">
-	<input type="button" onclick="Calc()" value="Calculate" class="formData Button" />
+</form>
+<p>Or...</p>
+<form id="ballForm">
+	<label for="balls">Choose your desired Pok&eacute; Ball:</label>
+	<select name="balls" id="balls">
+		<option value="default">Chose an option...</option>
+		<option value="net">Net Ball</option>
+		<option value="dive">Dive Ball</option>
+		<option value="nest">Nest Ball</option>
+		<option value="repeat">Repeat Ball</option>
+		<option value="timer">Timer Ball</option>
+		<option value="luxury">Luxury Ball</option>
+		<option value="dusk">Dusk Ball</option>
+		<option value="heal">Heal Ball</option>
+		<option value="quick">Quick Ball</option>
+	</select>
+</form>
+<br />
+<form id="submitButtons">
+	<input type="button" onclick="Calc()" value="Find my TR!" class="formData Button" />
+	<input type="button" onclick="ballCalc()" value="Find my Ball!" class="formData Button" />
+
 </form>
 
 <!--
@@ -436,7 +497,7 @@ document.getElementById("desiredTRForm").addEventListener('submit', function(e) 
 				fourthTRp = (firstTRp + 67) % 100;
 				fifthTRp = (firstTRp + 96) % 100;
 
-				document.getElementById('result').innerHTML = firstTRp;
+				//document.getElementById('result').innerHTML = firstTRp;
 				TROut[j-1] = [firstTRp, secondTRp, thirdTRp, fourthTRp, fifthTRp];
 
 			}
@@ -452,7 +513,7 @@ document.getElementById("desiredTRForm").addEventListener('submit', function(e) 
 			firstTR = (firstTR + 1) % 50;
 		}
 
-		}
+	}
 
 		//var LocationOptions = document.getElementById('area');
 		chosenLocationIndex +=1 ;
@@ -486,20 +547,124 @@ document.getElementById("desiredTRForm").addEventListener('submit', function(e) 
 			document.getElementById('locationOutMap').src = 'https://gamewith-en.akamaized.net/article/thumbnail/rectangle/13919.png';				
 		}
 
+
+		document.getElementById("firstTR").value = "";
+		document.getElementById("firstTR-hidden").value = "";
+		document.getElementById("desiredTR").value = "";
+		document.getElementById("desiredTR-hidden").value = "";
+
+
 	}
 
 
 
-function checkDesired(array, item) {
-	for (var i = 0; i < array.length; i++) {
-		for (var j = 0; j < 5; j++) {
-			if (array[i][j] == item) {
-				return i;
+	function checkDesired(array, item) {
+		for (var i = 0; i < array.length; i++) {
+			for (var j = 0; j < 5; j++) {
+				if (array[i][j] == item) {
+					return i;
+				}
 			}
 		}
+		return 1000;
 	}
-	return 1000;
-}
+</script>
+
+<script type="text/javascript">
+	function ballCalc() {
+		var firstTR;
+		var desiredBall;
+		var opt, chosenLoc;
+		var offeredBall;
+
+		opt = document.querySelectorAll('#area' + ' option');
+		chosenLoc = Number($('#area').find(":selected").index());
+
+		firstTR = document.getElementById('firstTR-hidden').value;
+		desiredBall = document.getElementById('balls').value;
+
+		var firstNaNTest = isNaN(Number(firstTR));
+
+		if (desiredBall == "default" || firstTR == "" || firstNaNTest === true) {
+			document.getElementById('result').innerHTML = "INVALID INPUT";
+			document.getElementById('locationOutImage').src = "";
+			document.getElementById('locationOutMap').src = "";
+			$("#result").css("color","red");
+			return;
+		}
+
+		// find the first TR at each location
+		firstTR = Number(firstTR);
+		desiredBall = Number($('#balls').find(":selected").index());
+
+		var ballBreak = 0;
+		var day = 0;
+
+
+		while(ballBreak == 0) {
+			for (var j = 1; j < opt.length; j++) {
+				firstTRp = (50 + firstTR + 7*(j-chosenLoc)) % 50;
+				offeredBall = firstTRp % 9;
+				if (firstTRp == 47) {
+					offeredBall = 3;
+				} else if (firstTRp == 48) {
+					offeredBall = 8;
+				} else if (firstTRp == 49) {
+					offeredBall = 7;
+				}
+
+				if (offeredBall == desiredBall-1) {
+					ballBreak = 1;
+					break;
+				}
+			}
+			if (ballBreak == 0) {
+				day += 1;
+				firstTR = (firstTR + 1) % 50;	
+			}
+			
+
+		}
+
+		var desiredBallLocationText = document.getElementById('area')[j].text;
+		document.getElementById('result').innerHTML = "After " + day + " day(s) your ball will be sold at " + desiredBallLocationText + ".";
+		$("#result").css("color","black");
+
+
+		if (j == 1) {
+			document.getElementById('locationOutImage').src = 'https://cdn.bulbagarden.net/upload/thumb/d/d3/Meetup_Spot_SwSh.png/800px-Meetup_Spot_SwSh.png';
+			document.getElementById('locationOutMap').src = 'https://cdn.vox-cdn.com/thumbor/CGPdT1zVjk4iQV3b-uhyOigdf_8=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19376973/where_to_find_gigantamax_pikachu_eevee.jpg';	
+
+		} else if (j == 2) {
+			document.getElementById('locationOutImage').src = 'https://www.gamerguides.com/assets/guides/resize990x-/168/The_Wild_Area_East_Lake_Axewell_Merchants_Pokemon_Sword_and_Shield.jpg';
+			document.getElementById('locationOutMap').src = 'https://gamewith-en.akamaized.net/article/thumbnail/rectangle/13897.png';	
+		} else if (j == 3) {
+			document.getElementById('locationOutImage').src = 'https://www.gamerguides.com/assets/guides/resize990x-/168/The_Wild_Area_Dappled_Grove_Watt_Trader_Pokemon_Sword_and_Shield.jpg';
+			document.getElementById('locationOutMap').src = 'https://gamewith-en.akamaized.net/article/thumbnail/rectangle/13888.png';	
+			
+		} else if (j == 4) {
+			document.getElementById('locationOutImage').src = 'https://cdn.bulbagarden.net/upload/thumb/3/33/Giant%27s_Seat_SwSh.png/290px-Giant%27s_Seat_SwSh.png';
+			document.getElementById('locationOutMap').src = 'https://gamewith-en.akamaized.net/article/thumbnail/rectangle/13891.png';
+		} else if (j == 5) {
+			document.getElementById('locationOutImage').src = 'https://cdn.mos.cms.futurecdn.net/JooUsvdcqgYoUTKBExw8sK.jpg';
+			document.getElementById('locationOutMap').src = 'https://gamewith-en.akamaized.net/article/thumbnail/rectangle/13907.png';
+		} else if (j == 6) {
+			document.getElementById('locationOutImage').src = 'https://static.gosunoob.com/img/1/2019/11/pokemon-sword-shield-watt-trader-locations-1024x581.jpg';
+			document.getElementById('locationOutMap').src = 'https://pokemonfaqs.com/wp-content/uploads/2020/03/galar_hammerlocke_hills_2.png';			
+		} else if (j == 7) {
+			document.getElementById('locationOutImage').src = 'https://pokemonfaqs.com/wp-content/uploads/2020/03/galar_giants_cap_1.jpg';
+			document.getElementById('locationOutMap').src = 'https://gamewith-en.akamaized.net/article/thumbnail/rectangle/13919.png';				
+		}
+
+
+		//document.getElementById("firstTR").value = "";
+		//document.getElementById("firstTR-hidden").value = "";
+		document.getElementById("desiredTR").value = "";
+		document.getElementById("desiredTR-hidden").value = "";
+
+	}
+
+
 </script>
 
 </body>
