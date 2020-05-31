@@ -115,8 +115,9 @@
 		}
 
 		.dark-mode-results {
-			color: white;
+			color: #5ce65c;
 		}
+
 
 		.center {
 			display: block;
@@ -551,6 +552,8 @@
 
 		if (document.getElementById("result").className == "") {
 			$("#result").css("color","green");	
+		} else {
+			$("#result").css("color","#5ce65c"); // dark mode
 		}
 		
 
@@ -678,6 +681,8 @@
 
 		if (document.getElementById("result").className == "") {
 			$("#result").css("color","green");	
+		} else {
+			$("#result").css("color","#5ce65c"); // dark mode
 		}
 
 
@@ -785,8 +790,10 @@
 		elementResults.classList.toggle("dark-mode-results");
 
 
-		if (document.getElementById("result").className == "") {
+		if (document.getElementById("result").className == "" && document.getElementById("result").innerHTML != "INVALID INPUT") {
 			$("#result").css("color","green");	// light mode
+		} else if (document.getElementById("result").innerHTML == "INVALID INPUT") {
+			$("#result").css("color","red");	// error
 		} else {
 			$("#result").css("color","#5ce65c"); // dark mode
 		}
