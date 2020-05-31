@@ -136,7 +136,7 @@
 	<button onclick="darkMode()" id="darkModeButton">Toggle Dark Mode</button>
 
 	<form id="traderLocationForm">
-		<label for="area">Enter the location of the Watt Trader:</label>
+		<label for="area">1. Enter the location of the Watt Trader:</label>
 		<select name="area" id="area">
 			<option value="default">Chose an option...</option>
 			<option value="meetup">Meetup Spot</option>
@@ -151,7 +151,7 @@
 	<img id="locationImage" src="images/gym-logo.png" alt=" " style="height: 300px;width: 563px;padding: 20px;" class="center"/>
 
 	<form id="firstTRForm">
-		<label for="firstTR">Enter the first TR the trader at the above location is selling:</label>
+		<label for="firstTR">2. Enter the first TR the trader at the above location is selling:</label>
 		<input list="firstTRs" name="firstTR" id="firstTR">
 		<datalist id="firstTRs">
 			<option data-value="00">Swords Dance (TR00)</option>
@@ -209,8 +209,9 @@
 
 	</form>
 	<br />
+	<br />
 	<form id="desiredTRForm">
-		<label for="desiredTR">Enter your desired TR:</label>
+		<label for="desiredTR">3a. Enter your desired TR:</label>
 		<input list="desiredTRs" name="desiredTR" id="desiredTR">
 		<datalist id="desiredTRs">
 			<option data-value="00">Swords Dance (TR00)</option>
@@ -318,7 +319,7 @@
 	</form>
 	<p>Or...</p>
 	<form id="ballForm">
-		<label for="balls">Choose your desired Pok&eacute; Ball:</label>
+		<label for="balls">3b. Choose your desired Pok&eacute; Ball:</label>
 		<select name="balls" id="balls">
 			<option value="default">Chose an option...</option>
 			<option value="net">Net Ball</option>
@@ -343,8 +344,9 @@
 	<p id="result" style="font-size: 20px; text-align: center;"></p>
 
 	<div class="center">
-	<img id="locationOutImage" src="" alt=" " style="height: 300px;width: 563px;padding: 20px;" />
-	<img id="locationOutMap" src="" alt=" " style="height: 300px;width: 563px;padding: 20px;"  />
+	<img id="locationOutImage" src="" alt=" " style="height: 300px;width: 563px;padding: 20px;" onerror="this.style.display='none'" />
+	<img id="locationOutMap" src="" alt=" " style="height: 300px;width: 563px;padding: 20px;" onerror="this.style.display='none'" />
+
 	</div>
 
 
@@ -364,8 +366,11 @@
 		<ol>
 			<li>Enter the location of your reference Watt Trader. There are 7 in the Wild Area: Meetup Spot, East Lake Axewell, Dappled Grove, Giant's Seat, Bridge Field, Hammerlocke Hills, and Giant's Cap.</li>
 			<li>Enter the first TR your reference Watt Trader is selling. <strong>This is the one listed first in his offerings, not necessarily the lowest TR number.</strong> You can type in the box to filter the options.</li>
-			<li>Enter the TR you'd like the purchase. You can type in the box to filter the options.</li>
-			<li>Alternatively to step 3, you can select the Pok&eacute; Ball you'd like to purcase from the appropriate dropdown.</li>
+			<li>Enter what you'd like to search for:</li>
+			<ul>
+				<li>Enter the TR you'd like the purchase. You can type in the box to filter the options.</li>
+				<li>Alternatively, you can select the Pok&eacute; Ball you'd like to purcase from the appropriate dropdown.</li>
+			</ul>
 			<li>Click the button to search for either your desired TR or your desired ball. The buttons are labeled appropriately.</li>
 		</ol>
 	</div>
@@ -551,27 +556,41 @@
 
 		if (chosenLocationIndex == 1) {
 			document.getElementById('locationOutImage').src = 'images/meetupTrader.jpg';
+			document.getElementById('locationOutImage').style.display = "inline-block";
 			document.getElementById('locationOutMap').src = 'images/meetupMap.jpg';	
+			document.getElementById('locationOutMap').style.display = 'inline-block';	
 
 		} else if (chosenLocationIndex == 2) {
 			document.getElementById('locationOutImage').src = 'images/axewellTrader.jpg';
+			document.getElementById('locationOutImage').style.display = 'inline-block';
 			document.getElementById('locationOutMap').src = 'images/axewellMap.jpg';	
+			document.getElementById('locationOutMap').style.display = 'inline-block';	
 		} else if (chosenLocationIndex == 3) {
 			document.getElementById('locationOutImage').src = 'images/groveTrader.jpg';
+			document.getElementById('locationOutImage').style.display = 'inline-block';
 			document.getElementById('locationOutMap').src = 'images/groveMap.jpg';	
+			document.getElementById('locationOutMap').style.display = 'inline-block';
 			
 		} else if (chosenLocationIndex == 4) {
 			document.getElementById('locationOutImage').src = 'images/seatTrader.jpg';
+			document.getElementById('locationOutImage').style.display = 'inline-block';
 			document.getElementById('locationOutMap').src = 'images/seatMap.jpg';
+			document.getElementById('locationOutMap').style.display = 'inline-block';
 		} else if (chosenLocationIndex == 5) {
 			document.getElementById('locationOutImage').src = 'images/fieldTrader.jpg';
+			document.getElementById('locationOutImage').style.display = 'inline-block';
 			document.getElementById('locationOutMap').src = 'images/fieldMap.jpg';
+			document.getElementById('locationOutMap').style.display = 'inline-block';
 		} else if (chosenLocationIndex == 6) {
 			document.getElementById('locationOutImage').src = 'images/hillsTrader.jpg';
+			document.getElementById('locationOutImage').style.display = 'inline-block';
 			document.getElementById('locationOutMap').src = 'images/hillsMap.jpg';			
+			document.getElementById('locationOutMap').style.display = 'inline-block';
 		} else if (chosenLocationIndex == 7) {
 			document.getElementById('locationOutImage').src = 'images/capTrader.jpg';
-			document.getElementById('locationOutMap').src = 'images/capMap.jpg';				
+			document.getElementById('locationOutImage').style.disaply = 'inline-block';
+			document.getElementById('locationOutMap').src = 'images/capMap.jpg';
+			document.getElementById('locationOutMap').style.display = 'inline-block';				
 		}
 
 
@@ -664,27 +683,39 @@
 
 		if (j == 1) {
 			document.getElementById('locationOutImage').src = 'images/meetupTrader.jpg';
-			document.getElementById('locationOutMap').src = 'images/meetupMap.jpg';		
-
+			document.getElementById('locationOutImage').style.display = "inline-block";
+			document.getElementById('locationOutMap').src = 'images/meetupMap.jpg';	
+			document.getElementById('locationOutMap').style.display = 'inline-block';	
 		} else if (j == 2) {
 			document.getElementById('locationOutImage').src = 'images/axewellTrader.jpg';
+			document.getElementById('locationOutImage').style.display = 'inline-block';
 			document.getElementById('locationOutMap').src = 'images/axewellMap.jpg';	
+			document.getElementById('locationOutMap').style.display = 'inline-block';	
 		} else if (j == 3) {
 			document.getElementById('locationOutImage').src = 'images/groveTrader.jpg';
+			document.getElementById('locationOutImage').style.display = 'inline-block';
 			document.getElementById('locationOutMap').src = 'images/groveMap.jpg';	
-			
+			document.getElementById('locationOutMap').style.display = 'inline-block';
 		} else if (j == 4) {
 			document.getElementById('locationOutImage').src = 'images/seatTrader.jpg';
+			document.getElementById('locationOutImage').style.display = 'inline-block';
 			document.getElementById('locationOutMap').src = 'images/seatMap.jpg';
+			document.getElementById('locationOutMap').style.display = 'inline-block';
 		} else if (j == 5) {
 			document.getElementById('locationOutImage').src = 'images/fieldTrader.jpg';
+			document.getElementById('locationOutImage').style.display = 'inline-block';
 			document.getElementById('locationOutMap').src = 'images/fieldMap.jpg';
+			document.getElementById('locationOutMap').style.display = 'inline-block';
 		} else if (j == 6) {
 			document.getElementById('locationOutImage').src = 'images/hillsTrader.jpg';
-			document.getElementById('locationOutMap').src = 'images/hillsMap.jpg';						
+			document.getElementById('locationOutImage').style.display = 'inline-block';
+			document.getElementById('locationOutMap').src = 'images/hillsMap.jpg';			
+			document.getElementById('locationOutMap').style.display = 'inline-block';					
 		} else if (j == 7) {
 			document.getElementById('locationOutImage').src = 'images/capTrader.jpg';
-			document.getElementById('locationOutMap').src = 'images/capMap.jpg';				
+			document.getElementById('locationOutImage').style.disaply = 'inline-block';
+			document.getElementById('locationOutMap').src = 'images/capMap.jpg';
+			document.getElementById('locationOutMap').style.display = 'inline-block';				
 		}
 
 
